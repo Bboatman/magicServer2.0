@@ -1,0 +1,42 @@
+{
+  "name": "CardInstance",
+  "fields": [
+    {
+      "fieldName": "count",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "missing",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "parsedName",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "card",
+      "otherEntityRelationshipName": "cardInstance",
+      "relationshipName": "card",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "deck",
+      "otherEntityRelationshipName": "cardInstance",
+      "relationshipName": "deck"
+    }
+  ],
+  "entityTableName": "card_instance",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211028061426"
+}

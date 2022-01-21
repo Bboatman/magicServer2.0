@@ -42,6 +42,8 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Deck", "Card", "CardInstance"],
+    "lastLiquibaseTimestamp": 1635401666000
   }
 }

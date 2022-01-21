@@ -1,0 +1,53 @@
+{
+  "name": "Card",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "rarity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "cardType",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "toughness",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "power",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cmc",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "colorIdentity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "x",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "y",
+      "fieldType": "Float"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "card",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211028061425"
+}
