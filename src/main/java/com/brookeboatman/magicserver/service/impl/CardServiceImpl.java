@@ -32,6 +32,11 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public List<Card> insertAll(List<Card> cardList) {
+        return (List<Card>) cardRepository.saveAll(cardList);
+    }
+
+    @Override
     public Optional<Card> partialUpdate(Card card) {
         log.debug("Request to partially update Card : {}", card);
 

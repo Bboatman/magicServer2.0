@@ -62,6 +62,16 @@ public class CardResource {
             .body(result);
     }
 
+    @PostMapping("/cards/bulk")
+    public String addCards(@RequestBody List<Card> cList) {
+        if (cList != null && !cList.isEmpty()) {
+            List<Card> result = cardService.insertAll(cList);
+            return String.valueOf(cList.size());
+        } else {
+            throw new BadRequestAlertException("An empty list cannot be saved", ENTITY_NAME, "notnull");
+        }
+    }
+
     /**
      * {@code PUT  /cards/:id} : Updates an existing card.
      *
@@ -77,7 +87,7 @@ public class CardResource {
         throws URISyntaxException {
         log.debug("REST request to update Card : {}, {}", id, card);
         if (card.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            createCard(card);
         }
         if (!Objects.equals(id, card.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");

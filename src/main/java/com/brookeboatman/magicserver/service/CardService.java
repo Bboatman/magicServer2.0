@@ -17,6 +17,14 @@ public interface CardService {
     Card save(Card card);
 
     /**
+     * Save many cards.
+     *
+     * @param cardList the list of entities to save.
+     * @return the persisted list of entities.
+     */
+    List<Card> insertAll(List<Card> cardList);
+
+    /**
      * Partially updates a card.
      *
      * @param card the entity to update partially.
