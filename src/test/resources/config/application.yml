@@ -53,6 +53,10 @@ spring:
     host: localhost
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   messages:
     basename: i18n/messages
   task:
@@ -94,9 +98,12 @@ jhipster:
     from: test@localhost
     base-url: http://127.0.0.1:8080
   security:
-    remember-me:
-      # security key (this key should be unique for your application, and kept secret)
-      key: af2b7fbafcb2738bbfa5921789ba408eea3d6fa2673dbc8908ab19a55ecaae6d56d069cdd60afad141abc12c4690941af108
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
+        base64-secret: NGIxMWE1NjRmMTkxOTU2NTNjMDExNTgwNjgyZGQxMDFhNTA0Yzg2Y2RiZTlhNzIxNDQxM2ViZTk0MzcyZmY2ZTdhMTIxZGY5NGRiZThkMDIxZjI1OGM1OTJmM2Q2NDBkZGQxYTlhMTEyN2IxNGZjY2MyZjQ2OTBkYTEyODYyMzU=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

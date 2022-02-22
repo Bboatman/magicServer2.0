@@ -2,7 +2,6 @@ package boatman.brooke.magicmonolithic.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -125,9 +124,7 @@ class CardResourceIT {
         int databaseSizeBeforeCreate = cardRepository.findAll().size();
         // Create the Card
         restCardMockMvc
-            .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card))
-            )
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card)))
             .andExpect(status().isCreated());
 
         // Validate the Card in the database
@@ -155,9 +152,7 @@ class CardResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCardMockMvc
-            .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card))
-            )
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card)))
             .andExpect(status().isBadRequest());
 
         // Validate the Card in the database
@@ -175,9 +170,7 @@ class CardResourceIT {
         // Create the Card, which fails.
 
         restCardMockMvc
-            .perform(
-                post(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card))
-            )
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card)))
             .andExpect(status().isBadRequest());
 
         List<Card> cardList = cardRepository.findAll();
@@ -263,7 +256,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, updatedCard.getId())
-                    .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(updatedCard))
             )
@@ -294,7 +286,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, card.getId())
-                    .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(card))
             )
@@ -315,7 +306,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
-                    .with(csrf())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(card))
             )
@@ -334,9 +324,7 @@ class CardResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCardMockMvc
-            .perform(
-                put(ENTITY_API_URL).with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card))
-            )
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(card)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Card in the database
@@ -366,7 +354,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCard.getId())
-                    .with(csrf())
                     .contentType("application/merge-patch+json")
                     .content(TestUtil.convertObjectToJsonBytes(partialUpdatedCard))
             )
@@ -413,7 +400,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCard.getId())
-                    .with(csrf())
                     .contentType("application/merge-patch+json")
                     .content(TestUtil.convertObjectToJsonBytes(partialUpdatedCard))
             )
@@ -444,7 +430,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, card.getId())
-                    .with(csrf())
                     .contentType("application/merge-patch+json")
                     .content(TestUtil.convertObjectToJsonBytes(card))
             )
@@ -465,7 +450,6 @@ class CardResourceIT {
         restCardMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
-                    .with(csrf())
                     .contentType("application/merge-patch+json")
                     .content(TestUtil.convertObjectToJsonBytes(card))
             )
@@ -484,12 +468,7 @@ class CardResourceIT {
 
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCardMockMvc
-            .perform(
-                patch(ENTITY_API_URL)
-                    .with(csrf())
-                    .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(card))
-            )
+            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(card)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Card in the database
@@ -507,7 +486,7 @@ class CardResourceIT {
 
         // Delete the card
         restCardMockMvc
-            .perform(delete(ENTITY_API_URL_ID, card.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
+            .perform(delete(ENTITY_API_URL_ID, card.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

@@ -1,5 +1,9 @@
 {
-  "name": "CardInstance",
+  "applications": ["magicMonolithic"],
+  "changelogDate": "20220222053028",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "card_instance",
   "fields": [
     {
       "fieldName": "count",
@@ -14,29 +18,25 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CardInstance",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "card",
       "otherEntityRelationshipName": "cardInstance",
+      "ownerSide": true,
       "relationshipName": "card",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "deck",
       "otherEntityRelationshipName": "cardInstance",
-      "relationshipName": "deck"
+      "relationshipName": "deck",
+      "relationshipType": "many-to-one"
     }
   ],
-  "entityTableName": "card_instance",
-  "dto": "no",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211028061426"
+  "service": "serviceImpl"
 }

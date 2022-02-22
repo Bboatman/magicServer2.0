@@ -1,5 +1,9 @@
 {
-  "name": "Deck",
+  "applications": ["magicMonolithic"],
+  "changelogDate": "20220222053029",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "deck",
   "fields": [
     {
       "fieldName": "name",
@@ -11,22 +15,18 @@
       "fieldValidateRules": ["unique", "required"]
     }
   ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Deck",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "cardInstance",
       "otherEntityRelationshipName": "deck",
-      "relationshipName": "cardInstance"
+      "relationshipName": "cardInstance",
+      "relationshipType": "one-to-many"
     }
   ],
-  "entityTableName": "deck",
-  "dto": "no",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20211028061424"
+  "service": "serviceImpl"
 }

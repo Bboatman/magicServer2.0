@@ -10,13 +10,12 @@ import activate from 'app/modules/account/activate/activate.reducer';
 import password from 'app/modules/account/password/password.reducer';
 import settings from 'app/modules/account/settings/settings.reducer';
 import passwordReset from 'app/modules/account/password-reset/password-reset.reducer';
-import sessions from 'app/modules/account/sessions/sessions.reducer';
-// prettier-ignore
-import deck from 'app/entities/deck/deck.reducer';
 // prettier-ignore
 import card from 'app/entities/card/card.reducer';
 // prettier-ignore
 import cardInstance from 'app/entities/card-instance/card-instance.reducer';
+// prettier-ignore
+import deck from 'app/entities/deck/deck.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -29,10 +28,9 @@ const rootReducer = {
   passwordReset,
   password,
   settings,
-  sessions,
-  deck,
   card,
   cardInstance,
+  deck,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

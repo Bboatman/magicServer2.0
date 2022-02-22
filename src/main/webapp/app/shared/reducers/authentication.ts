@@ -1,8 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
+import { Storage } from 'react-jhipster';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { serializeAxiosError } from './reducer.utils';
 
 import { AppThunk } from 'app/config/store';
+
+const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
@@ -29,9 +32,15 @@ export const getAccount = createAsyncThunk('authentication/get_account', async (
   serializeError: serializeAxiosError,
 });
 
+interface IAuthParams {
+  username: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
 export const authenticate = createAsyncThunk(
   'authentication/login',
-  async (data: string) => axios.post<any>('api/authentication', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }),
+  async (auth: IAuthParams) => axios.post<any>('api/authenticate', auth),
   {
     serializeError: serializeAxiosError,
   }
@@ -40,22 +49,36 @@ export const authenticate = createAsyncThunk(
 export const login: (username: string, password: string, rememberMe?: boolean) => AppThunk =
   (username, password, rememberMe = false) =>
   async dispatch => {
-    const data = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&remember-me=${rememberMe}&submit=Login`;
-    await dispatch(authenticate(data));
+    const result = await dispatch(authenticate({ username, password, rememberMe }));
+    const response = result.payload as AxiosResponse;
+    const bearerToken = response?.headers?.authorization;
+    if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
+      const jwt = bearerToken.slice(7, bearerToken.length);
+      if (rememberMe) {
+        Storage.local.set(AUTH_TOKEN_KEY, jwt);
+      } else {
+        Storage.session.set(AUTH_TOKEN_KEY, jwt);
+      }
+    }
     dispatch(getSession());
   };
 
-export const logoutServer = createAsyncThunk('authentication/logout', async () => axios.post<any>('api/logout', {}), {
-  serializeError: serializeAxiosError,
-});
+export const clearAuthToken = () => {
+  if (Storage.local.get(AUTH_TOKEN_KEY)) {
+    Storage.local.remove(AUTH_TOKEN_KEY);
+  }
+  if (Storage.session.get(AUTH_TOKEN_KEY)) {
+    Storage.session.remove(AUTH_TOKEN_KEY);
+  }
+};
 
-export const logout: () => AppThunk = () => async dispatch => {
-  await dispatch(logoutServer());
-  // fetch new csrf token
-  dispatch(getSession());
+export const logout: () => AppThunk = () => dispatch => {
+  clearAuthToken();
+  dispatch(logoutSession());
 };
 
 export const clearAuthentication = messageKey => dispatch => {
+  clearAuthToken();
   dispatch(authError(messageKey));
   dispatch(clearAuth());
 };
@@ -64,6 +87,12 @@ export const AuthenticationSlice = createSlice({
   name: 'authentication',
   initialState: initialState as AuthenticationState,
   reducers: {
+    logoutSession() {
+      return {
+        ...initialState,
+        showModalLogin: true,
+      };
+    },
     authError(state, action) {
       return {
         ...state,
@@ -113,10 +142,6 @@ export const AuthenticationSlice = createSlice({
           account: action.payload.data,
         };
       })
-      .addCase(logoutServer.fulfilled, state => ({
-        ...initialState,
-        showModalLogin: true,
-      }))
       .addCase(authenticate.pending, state => {
         state.loading = true;
       })
@@ -126,7 +151,7 @@ export const AuthenticationSlice = createSlice({
   },
 });
 
-export const { authError, clearAuth } = AuthenticationSlice.actions;
+export const { logoutSession, authError, clearAuth } = AuthenticationSlice.actions;
 
 // Reducer
 export default AuthenticationSlice.reducer;

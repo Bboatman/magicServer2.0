@@ -4,14 +4,12 @@ import boatman.brooke.magicmonolithic.config.Constants;
 import boatman.brooke.magicmonolithic.domain.Authority;
 import boatman.brooke.magicmonolithic.domain.User;
 import boatman.brooke.magicmonolithic.repository.AuthorityRepository;
-import boatman.brooke.magicmonolithic.repository.PersistentTokenRepository;
 import boatman.brooke.magicmonolithic.repository.UserRepository;
 import boatman.brooke.magicmonolithic.security.AuthoritiesConstants;
 import boatman.brooke.magicmonolithic.security.SecurityUtils;
 import boatman.brooke.magicmonolithic.service.dto.AdminUserDTO;
 import boatman.brooke.magicmonolithic.service.dto.UserDTO;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -39,8 +37,6 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final PersistentTokenRepository persistentTokenRepository;
-
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
@@ -48,13 +44,11 @@ public class UserService {
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
-        PersistentTokenRepository persistentTokenRepository,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
     }
@@ -295,25 +289,6 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
-    }
-
-    /**
-     * Persistent Token are used for providing automatic authentication, they should be automatically deleted after
-     * 30 days.
-     * <p>
-     * This is scheduled to get fired everyday, at midnight.
-     */
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void removeOldPersistentTokens() {
-        LocalDate now = LocalDate.now();
-        persistentTokenRepository
-            .findByTokenDateBefore(now.minusMonths(1))
-            .forEach(token -> {
-                log.debug("Deleting token {}", token.getSeries());
-                User user = token.getUser();
-                user.getPersistentTokens().remove(token);
-                persistentTokenRepository.delete(token);
-            });
     }
 
     /**

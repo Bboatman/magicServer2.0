@@ -1,7 +1,7 @@
 {
-  "generator-jhipster:7.3.1": {
+  "generator-jhipster:7.6.0": {
     "promptValues": {
-      "packageName": "boatman.brooke.magicmonolithic",
+      "packageName": "com.brookeboatman.magicserver",
       "nativeLanguage": "en"
     }
   }
