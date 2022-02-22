@@ -12,8 +12,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:14.1:///magicMonolithic?TC_TMPFS=/testtmpfs:rw
-    username: magicMonolithic
+    url: jdbc:tc:postgresql:14.1:///magicserver?TC_TMPFS=/testtmpfs:rw
+    username: magicserver
     password:
     hikari:
       poolName: Hikari

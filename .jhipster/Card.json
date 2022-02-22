@@ -1,6 +1,6 @@
 {
-  "applications": ["magicMonolithic"],
-  "changelogDate": "20220222053027",
+  "applications": ["magicserver"],
+  "changelogDate": "20211028061312",
   "dto": "no",
   "embedded": false,
   "entityTableName": "card",

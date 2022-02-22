@@ -39,7 +39,7 @@ export const DeckDeleteDialog = (props: RouteComponentProps<{ id: string }>) => 
       <ModalHeader toggle={handleClose} data-cy="deckDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="magicMonolithicApp.deck.delete.question">Are you sure you want to delete this Deck?</ModalBody>
+      <ModalBody id="magicserverApp.deck.delete.question">Are you sure you want to delete this Deck?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

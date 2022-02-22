@@ -1,6 +1,6 @@
 package com.brookeboatman.magicserver;
 
-import com.brookeboatman.magicserver.MagicServerApp;
+import com.brookeboatman.magicserver.MagicserverApp;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,6 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = MagicServerApp.class)
+@SpringBootTest(classes = MagicserverApp.class)
 public @interface IntegrationTest {
 }

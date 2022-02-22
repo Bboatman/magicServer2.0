@@ -61,7 +61,7 @@ export const DeckUpdate = (props: RouteComponentProps<{ id: string }>) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="magicMonolithicApp.deck.home.createOrEditLabel" data-cy="DeckCreateUpdateHeading">
+          <h2 id="magicserverApp.deck.home.createOrEditLabel" data-cy="DeckCreateUpdateHeading">
             Create or edit a Deck
           </h2>
         </Col>

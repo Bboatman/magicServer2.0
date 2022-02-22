@@ -39,7 +39,7 @@ export const CardInstanceDeleteDialog = (props: RouteComponentProps<{ id: string
       <ModalHeader toggle={handleClose} data-cy="cardInstanceDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>
-      <ModalBody id="magicMonolithicApp.cardInstance.delete.question">Are you sure you want to delete this CardInstance?</ModalBody>
+      <ModalBody id="magicserverApp.cardInstance.delete.question">Are you sure you want to delete this CardInstance?</ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

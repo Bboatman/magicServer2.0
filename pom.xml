@@ -5,12 +5,12 @@
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>boatman.brooke.magicmonolithic</groupId>
-    <artifactId>magic-monolithic</artifactId>
+    <groupId>com.brookeboatman.magicserver</groupId>
+    <artifactId>magicserver</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Magic Monolithic</name>
-    <description>Description for magicMonolithic</description>
+    <name>Magicserver</name>
+    <description>Description for magicserver</description>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -34,7 +34,7 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <start-class>boatman.brooke.magicmonolithic.MagicMonolithicApp</start-class>
+        <start-class>com.brookeboatman.magicserver.MagicserverApp</start-class>
         <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
         <m2e.apt.activation>jdt_apt</m2e.apt.activation>
         <run.addResources>false</run.addResources>
@@ -586,7 +586,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>magicmonolithic:latest</image>
+                            <image>magicserver:latest</image>
                         </to>
                         <container>
                             <entrypoint>
@@ -973,11 +973,11 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>org.h2.Driver</driver>
-                                <url>jdbc:h2:file:${project.build.directory}/h2db/db/magicmonolithic</url>
+                                <url>jdbc:h2:file:${project.build.directory}/h2db/db/magicserver</url>
                                 <defaultSchemaName></defaultSchemaName>
-                                <username>magicMonolithic</username>
+                                <username>magicserver</username>
                                 <password></password>
-                                <referenceUrl>hibernate:spring:boatman.brooke.magicmonolithic.domain?dialect=org.hibernate.dialect.H2Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
+                                <referenceUrl>hibernate:spring:com.brookeboatman.magicserver.domain?dialect=org.hibernate.dialect.H2Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                                 <verbose>true</verbose>
                                 <logging>debug</logging>
                                 <contexts>!test</contexts>

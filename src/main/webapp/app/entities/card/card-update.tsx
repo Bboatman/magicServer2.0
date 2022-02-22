@@ -61,7 +61,7 @@ export const CardUpdate = (props: RouteComponentProps<{ id: string }>) => {
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="magicMonolithicApp.card.home.createOrEditLabel" data-cy="CardCreateUpdateHeading">
+          <h2 id="magicserverApp.card.home.createOrEditLabel" data-cy="CardCreateUpdateHeading">
             Create or edit a Card
           </h2>
         </Col>
