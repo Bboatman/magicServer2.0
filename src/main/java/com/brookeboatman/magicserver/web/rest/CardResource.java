@@ -26,8 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class CardResource {
 
-    // testing credential manager
-
     private final Logger log = LoggerFactory.getLogger(CardResource.class);
 
     private static final String ENTITY_NAME = "card";
