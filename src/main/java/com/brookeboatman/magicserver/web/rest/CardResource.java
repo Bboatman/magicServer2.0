@@ -62,11 +62,18 @@ public class CardResource {
             .body(result);
     }
 
+    /**
+     * {@code POST  /cards/bulk} : Create many new cards
+     *
+     * @param cList the cards to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body updated card array, or with status {@code 400 (Bad Request)} put array is empty.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
     @PostMapping("/cards/bulk")
-    public String addCards(@RequestBody List<Card> cList) {
+    public ResponseEntity<List<Card>> addCards(@RequestBody List<Card> cList) throws URISyntaxException {
         if (cList != null && !cList.isEmpty()) {
             List<Card> result = cardService.insertAll(cList);
-            return String.valueOf(cList.size());
+            return ResponseEntity.created(new URI("/api/cards/bulk")).body(result);
         } else {
             throw new BadRequestAlertException("An empty list cannot be saved", ENTITY_NAME, "notnull");
         }
