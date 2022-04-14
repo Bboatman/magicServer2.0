@@ -69,6 +69,7 @@ public class CardResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body updated card array, or with status {@code 400 (Bad Request)} put array is empty.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+    @PatchMapping("/cards/bulk")
     @PostMapping("/cards/bulk")
     public ResponseEntity<List<Card>> addCards(@RequestBody List<Card> cList) throws URISyntaxException {
         if (cList != null && !cList.isEmpty()) {
