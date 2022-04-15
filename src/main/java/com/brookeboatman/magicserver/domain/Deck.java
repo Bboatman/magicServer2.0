@@ -33,6 +33,10 @@ public class Deck implements Serializable {
     @JsonIgnoreProperties(value = { "card", "deck" }, allowSetters = true)
     private Set<CardInstance> cardInstances = new HashSet<>();
 
+    public Deck() {
+        // Empty constructor needed for Jackson.
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -131,6 +135,7 @@ public class Deck implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", url='" + getUrl() + "'" +
+            ", cardInstances=" + getCardInstances() +
             "}";
     }
 }

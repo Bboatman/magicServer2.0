@@ -32,6 +32,12 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public List<String> findUnseen() {
+        log.debug("Get unseen cards");
+        return cardRepository.findUnseen();
+    }
+
+    @Override
     public List<Card> insertAll(List<Card> cardList) {
         return (List<Card>) cardRepository.saveAll(cardList);
     }
@@ -88,6 +94,13 @@ public class CardServiceImpl implements CardService {
     public Optional<Card> findOne(Long id) {
         log.debug("Request to get Card : {}", id);
         return cardRepository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Card> findOne(String cardName) {
+        log.debug("Request to get Card : {}", cardName);
+        return cardRepository.findByName(cardName);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class CardInstance implements Serializable {
     private String parsedName;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = false)
     private Card card;
 
     @ManyToOne
@@ -138,11 +138,22 @@ public class CardInstance implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
+        String deckId = "None";
+        String cardId = "None";
+        if (getCard() != null && getCard().getId() != null){
+            cardId = getCard().getId().toString();
+        }
+        if (getDeck() != null && getDeck().getId() != null){
+            deckId = getDeck().getId().toString();
+        }
+
         return "CardInstance{" +
             "id=" + getId() +
             ", count=" + getCount() +
             ", missing='" + getMissing() + "'" +
             ", parsedName='" + getParsedName() + "'" +
+            ", card=" + cardId +
+            ", deck=" + deckId +
             "}";
     }
 }

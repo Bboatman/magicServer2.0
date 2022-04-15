@@ -3,6 +3,7 @@ package com.brookeboatman.magicserver.service;
 import com.brookeboatman.magicserver.domain.Card;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Interface for managing {@link Card}.
@@ -48,9 +49,24 @@ public interface CardService {
     Optional<Card> findOne(Long id);
 
     /**
+     * Get the named card
+     *
+     * @param cardName the name of the card to match
+     * @return the entity
+     */
+    Optional<Card> findOne(String cardName);
+
+    /**
      * Delete the "id" card.
      *
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * Get all card names for cards that do not have corresponding card instance
+     *
+     * @return List of card names where card not in card instances
+     */
+    List<String> findUnseen();
 }

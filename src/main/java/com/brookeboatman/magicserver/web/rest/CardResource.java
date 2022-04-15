@@ -173,6 +173,17 @@ public class CardResource {
     }
 
     /**
+     * {@code GET  /cards} : get all the cards.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cards in body.
+     */
+    @GetMapping("/unseen")
+    public List<String> getUnseenCardsList() {
+        log.debug("REST request to get all unseen Cards");
+        return cardService.findUnseen();
+    }
+
+    /**
      * {@code DELETE  /cards/:id} : delete the "id" card.
      *
      * @param id the id of the card to delete.

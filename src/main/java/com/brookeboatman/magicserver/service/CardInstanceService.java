@@ -3,6 +3,7 @@ package com.brookeboatman.magicserver.service;
 import com.brookeboatman.magicserver.domain.CardInstance;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Interface for managing {@link CardInstance}.
@@ -15,6 +16,14 @@ public interface CardInstanceService {
      * @return the persisted entity.
      */
     CardInstance save(CardInstance cardInstance);
+
+    /**
+     * Save many cards.
+     *
+     * @param cardInstances the set of entities to save.
+     * @return the persisted set of entities.
+     */
+    Set<CardInstance> insertAll(Set<CardInstance> cardInstances);
 
     /**
      * Partially updates a cardInstance.

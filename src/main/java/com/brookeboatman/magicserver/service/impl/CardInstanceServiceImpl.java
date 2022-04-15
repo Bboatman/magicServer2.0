@@ -3,8 +3,11 @@ package com.brookeboatman.magicserver.service.impl;
 import com.brookeboatman.magicserver.domain.CardInstance;
 import com.brookeboatman.magicserver.repository.CardInstanceRepository;
 import com.brookeboatman.magicserver.service.CardInstanceService;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,12 @@ public class CardInstanceServiceImpl implements CardInstanceService {
     public CardInstance save(CardInstance cardInstance) {
         log.debug("Request to save CardInstance : {}", cardInstance);
         return cardInstanceRepository.save(cardInstance);
+    }
+
+    @Override
+    public Set<CardInstance> insertAll(Set<CardInstance> cardInstances) {
+        log.debug("Saving all card instances", cardInstances);
+        return new HashSet<>(cardInstanceRepository.saveAll(cardInstances));
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.brookeboatman.magicserver.web.rest;
 
+import com.brookeboatman.magicserver.domain.Card;
+import com.brookeboatman.magicserver.domain.CardInstance;
 import com.brookeboatman.magicserver.domain.Deck;
 import com.brookeboatman.magicserver.repository.DeckRepository;
+import com.brookeboatman.magicserver.service.CardInstanceService;
+import com.brookeboatman.magicserver.service.CardService;
 import com.brookeboatman.magicserver.service.DeckService;
 import com.brookeboatman.magicserver.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -9,6 +13,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -35,10 +41,21 @@ public class DeckResource {
 
     private final DeckService deckService;
 
+    private final CardService cardService;
+
+    private final CardInstanceService cardInstanceService;
+
     private final DeckRepository deckRepository;
 
-    public DeckResource(DeckService deckService, DeckRepository deckRepository) {
+    public DeckResource(
+        DeckService deckService,
+        CardService cardService,
+        CardInstanceService cardInstanceService,
+        DeckRepository deckRepository
+    ) {
         this.deckService = deckService;
+        this.cardService = cardService;
+        this.cardInstanceService = cardInstanceService;
         this.deckRepository = deckRepository;
     }
 
@@ -56,6 +73,24 @@ public class DeckResource {
             throw new BadRequestAlertException("A new deck cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Deck result = deckService.save(deck);
+
+        Set<CardInstance> cardInstances = deck
+            .getCardInstances()
+            .stream()
+            .map((CardInstance c) -> {
+                Optional<Card> card = cardService.findOne(c.getParsedName());
+                c.setDeck(result);
+                if (card.isPresent()) {
+                    c.setCard(card.get());
+                } else {
+                    c.setMissing(true);
+                }
+                return c;
+            })
+            .collect(Collectors.toSet());
+
+        cardInstanceService.insertAll(cardInstances);
+
         return ResponseEntity
             .created(new URI("/api/decks/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
