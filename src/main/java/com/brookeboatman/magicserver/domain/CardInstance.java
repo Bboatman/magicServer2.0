@@ -28,8 +28,7 @@ public class CardInstance implements Serializable {
     @Column(name = "parsed_name")
     private String parsedName;
 
-    @OneToOne
-    @JoinColumn(unique = false)
+    @ManyToOne
     private Card card;
 
     @ManyToOne

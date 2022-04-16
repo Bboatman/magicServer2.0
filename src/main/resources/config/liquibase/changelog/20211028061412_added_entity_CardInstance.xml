@@ -24,7 +24,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="card_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_card_instance__card_id" />
+                <constraints nullable="true"/>
             </column>
             <column name="deck_id" type="bigint">
                 <constraints nullable="true" />

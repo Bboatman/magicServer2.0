@@ -70,6 +70,15 @@ public class CardResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping("/cards/bulk")
+    public ResponseEntity<List<Card>> updateCards(@RequestBody List<Card> cList) throws URISyntaxException {
+        if (cList != null && !cList.isEmpty()) {
+            List<Card> result = cardService.insertAll(cList);
+            return ResponseEntity.created(new URI("/api/cards/bulk")).body(result);
+        } else {
+            throw new BadRequestAlertException("An empty list cannot be saved", ENTITY_NAME, "notnull");
+        }
+    }
+
     @PostMapping("/cards/bulk")
     public ResponseEntity<List<Card>> addCards(@RequestBody List<Card> cList) throws URISyntaxException {
         if (cList != null && !cList.isEmpty()) {
