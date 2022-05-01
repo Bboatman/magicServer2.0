@@ -40,6 +40,13 @@ public interface DeckService {
     Optional<Deck> findOne(Long id);
 
     /**
+     * Get urls for all recorded decs decks
+     *
+     * @return List of deck url strings
+     */
+    List<String> getDeckUrls();
+
+    /**
      * Delete the "id" deck.
      *
      * @param id the id of the entity.

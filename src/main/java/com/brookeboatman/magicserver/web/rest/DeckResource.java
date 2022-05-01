@@ -190,6 +190,17 @@ public class DeckResource {
     }
 
     /**
+     * {@code GET  /decks/urls} : get all the cards.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cards in body.
+     */
+    @GetMapping("/decks/urls")
+    public List<String> getDeckUrls() {
+        log.debug("REST request to get all deck urls");
+        return deckService.getDeckUrls();
+    }
+
+    /**
      * {@code DELETE  /decks/:id} : delete the "id" deck.
      *
      * @param id the id of the deck to delete.

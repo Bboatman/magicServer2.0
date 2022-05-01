@@ -65,6 +65,13 @@ public class DeckServiceImpl implements DeckService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<String> getDeckUrls() {
+        log.debug("Request to get deck urls");
+        return deckRepository.getDeckUrls();
+    }
+
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete Deck : {}", id);
         deckRepository.deleteById(id);

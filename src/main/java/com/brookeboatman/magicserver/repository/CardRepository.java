@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
-    @Query("SELECT c.name FROM Card c LEFT JOIN CardInstance instance ON instance.parsedName=c.name WHERE instance.parsedName IS NULL")
+    static final String findUnseenQuery =
+        "select top 10 card.name from card where name not in (SELECT ci.parsed_name as name FROM card_instance ci group by parsed_name, id) order by rand()";
+
+    @Query(value = findUnseenQuery, nativeQuery = true)
     public List<String> findUnseen();
 
     public Optional<Card> findByName(String cardName);
