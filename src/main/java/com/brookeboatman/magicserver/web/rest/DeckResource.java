@@ -84,6 +84,10 @@ public class DeckResource {
                     c.setCard(card.get());
                 } else {
                     c.setMissing(true);
+                    Optional<Card> bestMatch = cardService.findBestMatch(c.getParsedName());
+                    if (bestMatch.isPresent()) {
+                        c.setCard(bestMatch.get());
+                    }
                 }
                 return c;
             })

@@ -57,6 +57,14 @@ public interface CardService {
     Optional<Card> findOne(String cardName);
 
     /**
+     * Get the named card
+     *
+     * @param cardName the name of the card to match
+     * @return the entity
+     */
+    Optional<Card> findBestMatch(String cardName);
+
+    /**
      * Delete the "id" card.
      *
      * @param id the id of the entity.

@@ -5,6 +5,7 @@ import com.brookeboatman.magicserver.repository.CardRepository;
 import com.brookeboatman.magicserver.service.CardService;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -101,6 +102,17 @@ public class CardServiceImpl implements CardService {
     public Optional<Card> findOne(String cardName) {
         log.debug("Request to get Card : {}", cardName);
         return cardRepository.findByName(cardName);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Card> findBestMatch(String cardName) {
+        Optional<Card> ret = Optional.empty();
+        List<Card> choices = cardRepository.findByNameContaining(cardName);
+        if (choices.size() > 0) {
+            return Optional.of(choices.get(0));
+        }
+        return ret;
     }
 
     @Override

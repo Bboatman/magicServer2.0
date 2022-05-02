@@ -4,6 +4,7 @@ import com.brookeboatman.magicserver.domain.Card;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,4 +20,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     public List<String> findUnseen();
 
     public Optional<Card> findByName(String cardName);
+
+    public List<Card> findByNameContaining(String name);
 }
